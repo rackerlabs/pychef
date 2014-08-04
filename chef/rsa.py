@@ -1,5 +1,6 @@
 import six
 import sys
+from ctypes import util
 from ctypes import *
 
 if sys.platform == 'win32' or sys.platform == 'cygwin':
@@ -7,7 +8,7 @@ if sys.platform == 'win32' or sys.platform == 'cygwin':
 elif sys.platform == 'darwin':
     _eay = CDLL('libcrypto.dylib')
 else:
-    _eay = CDLL('libcrypto.so')
+    _eay = CDLL(util.find_library('crypto'))
 
 #unsigned long ERR_get_error(void);
 ERR_get_error = _eay.ERR_get_error
